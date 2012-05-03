@@ -38,6 +38,8 @@ def enforce_lockout(function):
         if settings.USE_USER_AGENT:
             useragent = request.META.get('HTTP_USER_AGENT', '')
             params.append(useragent)
+        if 'username' in kwargs:
+            params.append(kwargs['username'])
         
         key = generate_base_key(*params)
         attempts = cache.get(key) or 0
